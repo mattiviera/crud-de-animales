@@ -1,0 +1,21 @@
+body {
+    background-image: url('../images/download.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.minav {
+    background-color: rgba(204, 255, 0, 0.726);
+    text-align: center;
+    
+}
+
+.h1style{
+    text-align: center;
+}
+
+
+.formstyle{
+    text-align: center;
+}

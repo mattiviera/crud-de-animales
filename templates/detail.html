@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h1style">Detalle del Animal</h1>
+<img src="{{ animal.photo }}" alt="{{ animal.name }}" class="circular">
+<p>Nombre: {{ animal.name }}</p>
+<p>Característica 1: {{ animal.characteristic1 }}</p>
+<p>Característica 2: {{ animal.characteristic2 }}</p>
+<p>Característica 3: {{ animal.characteristic3 }}</p>
+<p>Característica 4: {{ animal.characteristic4 }}</p>
+<a href="{{ url_for('index') }}">Volver a la lista</a>
+<a href="{{ url_for('update', name=animal.name) }}">Actualizar</a>
+{% endblock %}

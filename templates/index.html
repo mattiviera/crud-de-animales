@@ -1,0 +1,15 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h1style">Lista de Animales</h1>
+<ul>
+    {% for animal in animals %}
+    <li>
+        <a href="{{ url_for('detail', name=animal.name) }}">{{ animal.name }}</a> - {{ animal.characteristic1 }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
