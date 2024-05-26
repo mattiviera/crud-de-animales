@@ -6,6 +6,7 @@ app = Flask(__name__)
 animals = []
 
 @app.route('/')
+@app.route('/home')
 def index():
     return render_template('index.html', animals=animals)
 
@@ -58,6 +59,17 @@ def update(name):
         return redirect(url_for('index'))
 
     return render_template('update.html', animal=animal)
+
+@app.route('/delete/<name>')
+def delete(name):
+    user = name.query.get(name)
+    if user:
+        try:
+            animals.delete(user)
+            animals.commit()
+        except Exception as e:
+            print(f'Error al eliminar. {e}')
+    return redirect('/home')
 
 if __name__ == '__main__':
     app.run(debug=True)
