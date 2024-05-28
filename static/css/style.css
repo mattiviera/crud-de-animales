@@ -1,21 +1,30 @@
 body {
-    background-image: url('../images/download.jpg');
+    background-image: url('../images/downloadd.jpg');
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-
-.minav {
-    background-color: rgba(204, 255, 0, 0.726);
-    text-align: center;
-    
+.circular {
+    border-radius: 50%;
+    width: 150px; 
+    height: 150px; 
 }
 
 .h1style{
     text-align: center;
 }
 
-
-.formstyle{
-    text-align: center;
+.container {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(184, 83, 24, 0.751); 
+    max-width: 950px;
+    margin: 50px auto; 
+    border-radius: 8px; 
 }

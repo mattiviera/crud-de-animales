@@ -2,9 +2,9 @@
 
 {% block content %}
 <h1 class="h1style">Actualizar Animal</h1>
-<form class="formstyle" method="POST">
+<form class="h1style" method="POST">
     <label for="name">Nombre:</label>
-    <input type="text" id="name" name="name" value="{{ animal.name }}" readonly>
+    <input type="text" id="name" name="name" value="{{ animal.name }}" required>
     <br>
     <label for="photo">Foto (URL):</label>
     <input type="url" id="photo" name="photo" value="{{ animal.photo }}" required>
@@ -22,6 +22,5 @@
     <input type="text" id="characteristic4" name="characteristic4" value="{{ animal.characteristic4 }}">
     <br>
     <button type="submit">Actualizar</button>
-    <a class="btn btn-danger btn-sm" href="/name/delete/{{ name }}">Borrar</a>
 </form>
 {% endblock %}
