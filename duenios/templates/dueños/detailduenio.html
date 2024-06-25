@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h1style">Detalle del Dueño</h1>
+<div class="h1style">
+<p>Nombre: {{ duenio.name }}</p>
+<p>Apellido: {{ duenio.lastname }}</p>
+<p>Localidad: {{ duenio.localidad }}</p>
+<p>Mascota: {{ duenio.animal.name }}</p>
+<a href="{{ url_for('duenios_bp.index_duenios') }}" style="color: blueviolet;">Volver a la lista</a>
+<a href="{{ url_for('duenios_bp.update_duenio', id=duenio.id) }}" style="color: darkgoldenrod;">Actualizar</a>
+<a href="{{ url_for('duenios_bp.delete_duenio', id=duenio.id) }}" style="color:red;">Eliminar</a>
+</div>
+{% endblock %}

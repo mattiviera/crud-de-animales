@@ -26,3 +26,12 @@ STRCNX='sqlite:///animals.db'
 
 
 SQLALCHEMY_DATABASE_URI=STRCNX
+
+from models.models import Animal
+
+var_globales= {
+    'isLogued': False,
+    'user': Animal,
+    'title': 'Mi App de Flask',
+    'mensaje': ''
+}
