@@ -81,3 +81,4 @@ def delete_duenio(id):
         except Exception as e:
             print(f'Error al eliminar. {e}')
     return redirect(url_for('/duenios'))
+

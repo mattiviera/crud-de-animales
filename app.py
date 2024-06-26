@@ -19,19 +19,20 @@ app = Flask(__name__)
 app.secret_key = Fernet.generate_key()
 app.register_blueprint(animales_bp, url_prefix='/animales')
 app.register_blueprint(duenios_bp, url_prefix='/duenios')
+from flask import Flask
 
 # Retorna un diccionario con las variables que quieres compartir entre los templates y rutas
-@app.context_processor
-def inject_variables():
-    return config.var_globales
+#@app.context_processor
+#def inject_variables():
+#    return config.var_globales
 
 # Se genera un clave secreta que permitira mas adelante encriptar datos
 #app.secret_key = Fernet.generate_key()
 # Definir un filtro personalizado para formatear la fecha
 
-@app.template_filter('format_datetime')
-def format_datetime(value, format="%d/%m/%Y %H:%M:%S"):
-    return value.strftime(format)
+#@app.template_filter('format_datetime')
+#def format_datetime(value, format="%d/%m/%Y %H:%M:%S"):
+#    return value.strftime(format)
 
 @app.route('/home')
 @app.route('/')
