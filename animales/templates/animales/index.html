@@ -5,10 +5,10 @@
 <ul>
     {% for animal in animals %}
     <li class="h1style">
-        <a href="{{ url_for('animales_bp.detail_animal', id=animal.id) }}">{{ animal.name }}</a> - {{ animal.characteristic1 }} - {{ animal.characteristic3 }}
+        <a href="/animales/animal">{{ animal.name }}</a> - {{ animal.characteristic1 }} - {{ animal.characteristic3 }}
         <br>
-        <a href="{{ url_for('animales_bp.update_animal', id=animal.id) }}" style="color: darkgoldenrod;" >Actualizar</a>
-        <a href="{{ url_for('animales_bp.delete_animal', id=animal.id) }}" style="color:red;">Eliminar</a>
+        <a href="/animales/update" style="color: darkgoldenrod;" >Actualizar</a>
+        <a href="/animales/delete" style="color:red;">Eliminar</a>
     </li>
     {% endfor %}
 </ul>

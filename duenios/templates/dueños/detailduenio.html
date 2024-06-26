@@ -7,8 +7,8 @@
 <p>Apellido: {{ duenio.lastname }}</p>
 <p>Localidad: {{ duenio.localidad }}</p>
 <p>Mascota: {{ duenio.animal.name }}</p>
-<a href="{{ url_for('duenios_bp.index_duenios') }}" style="color: blueviolet;">Volver a la lista</a>
-<a href="{{ url_for('duenios_bp.update_duenio', id=duenio.id) }}" style="color: darkgoldenrod;">Actualizar</a>
-<a href="{{ url_for('duenios_bp.delete_duenio', id=duenio.id) }}" style="color:red;">Eliminar</a>
+<a href="/duenios/indexduenio" style="color: blueviolet;">Volver a la lista</a>
+<a href="/duenios/updateduenio" style="color: darkgoldenrod;">Actualizar</a>
+<a href="/duenios/deleteduenio" style="color:red;">Eliminar</a>
 </div>
 {% endblock %}

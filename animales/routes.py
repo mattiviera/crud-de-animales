@@ -10,6 +10,10 @@ animales_bp = Blueprint (
     "animales_bp", __name__, template_folder="templates", static_folder="static"
 )
 
+@animales_bp.route('/home')
+def index_animals():
+    animals = session.query(Animal).all()
+    return render_template('animales/index.html', animals=animals)
 
 @animales_bp.route('/create', methods=['GET', 'POST'])
 def create_animal():
@@ -37,7 +41,7 @@ def create_animal():
             session.rollback()
             return f'Error al crear el animal: {e}'
 
-    return render_template('/animales/create.html')
+    return render_template('animales/create.html')
 
 @animales_bp.route('/animal/<int:id>')
 def detail_animal(id):
@@ -72,7 +76,7 @@ def update_animal(id):
                 session.rollback()
                 return f'Error al actualizar el animal: {e}'
 
-    return render_template('/animales/update.html', animal=animal)
+    return render_template('animales/update.html', animal=animal)
 
 @animales_bp.route('/delete/<int:id>')
 def delete_animal(id):

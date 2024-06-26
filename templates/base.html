@@ -8,10 +8,10 @@
 </head>
 <body>
     <nav class="h1style">
-        <a href="{{ url_for('animales_bp.index_animals') }}" style="color: blueviolet;">Home</a>
-        <a href="{{ url_for('animales_bp.create_animal') }}" style="color: cadetblue;">Create</a>
-        <a href="{{ url_for('duenios_bp.create_duenio') }}" style="color: brown;" >Create Dueño</a>
-        <a href="{{ url_for('duenios_bp.index_duenios') }}" style="color: chartreuse;" >Lista de Dueños</a>
+        <a href="/animales/home" style="color: blueviolet;">Home</a>
+        <a href="/animales/create" style="color: cadetblue;">Create</a>
+        <a href="/duenios/createduenio" style="color: brown;" >Create Dueño</a>
+        <a href="/duenios/indexduenio" style="color: chartreuse;" >Lista de Dueños</a>
     </nav>
     <div class="container">
         {% block content %}{% endblock %}

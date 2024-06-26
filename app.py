@@ -35,7 +35,7 @@ def format_datetime(value, format="%d/%m/%Y %H:%M:%S"):
 
 @app.route('/home')
 @app.route('/')
-def index_animals():
+def animals():
     animals = db.session.query(Animal).all()
     return render_template('base.html', animals=animals)
 

@@ -38,12 +38,12 @@ def create_duenio():
             return f'Error al crear el dueño: {e}'
     
     animals = session.query(Animal).all()
-    return render_template('/duenios/createduenio.html', animals=animals)
+    return render_template('duenios/createduenio.html', animals=animals)
 
 @duenios_bp.route('/duenio/<int:id>')
 def detail_duenio(id):
     duenio = session.query(Duenio).get(id)
-    return render_template('/duenios/detailduenio.html', duenio=duenio)
+    return render_template('duenios/detailduenio.html', duenio=duenio)
 
 @duenios_bp.route('/updateduenio/<int:id>', methods=["GET", "POST"])
 def update_duenio(id):
@@ -69,7 +69,7 @@ def update_duenio(id):
                 session.rollback()
                 return f'Error al actualizar el animal: {e}'
 
-    return render_template('/duenios/updateduenio.html', duenio=duenio)
+    return render_template('duenios/updateduenio.html', duenio=duenio)
 
 @duenios_bp.route('/deleteduenio/<int:id>')
 def delete_duenio(id):

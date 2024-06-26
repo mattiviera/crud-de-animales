@@ -5,10 +5,10 @@
 <ul>
     {% for duenio in duenios %}
     <li class="h1style">
-        <a href="{{ url_for('duenios_bp.detail_duenio', id=duenio.id) }}">{{ duenio.name }}</a> - {{ duenio.lastname }} 
+        <a href="/duenios/detailduenio">{{ duenio.name }}</a> - {{ duenio.lastname }} 
         <br>
-        <a href="{{ url_for('duenios_bp.update_duenio', id=duenio.id) }}" style="color: darkgoldenrod;" >Actualizar</a>
-        <a href="{{ url_for('duenios_bp.delete_duenio', id=duenio.id) }}" style="color:red;">Eliminar</a>
+        <a href="/duenios/updateduenio" style="color: darkgoldenrod;" >Actualizar</a>
+        <a href="/duenios/deleteduenio" style="color:red;">Eliminar</a>
     </li>
     {% endfor %}
 </ul>
