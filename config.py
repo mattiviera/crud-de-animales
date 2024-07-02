@@ -1,11 +1,14 @@
+import os
+from dotenv import load_dotenv
+# Cargar el archivo .env
+load_dotenv()
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'your_secret_key'
 # Configuro el motor de base de datos y la cadena de conxion
-
-
 # Con SQite
-STRCNX='sqlite:///animals.db'
-
-
-## ---------------------------------------------------------------------------
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'animals.db')
 
 # Con MySQL, debemos tenes instalado pymysql
 
@@ -24,14 +27,12 @@ STRCNX='sqlite:///animals.db'
 # PORT='3306'
 # STRCNX=f'mysql+pymysql://{USER}:{PWDS}@{HOST}:{PORT}/{DBA}'
 
-
-SQLALCHEMY_DATABASE_URI=STRCNX
-
-from models.models import Animal
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+DEBUG = True if os.environ.get('ENVIROMENT') == 'local' else False
+PORT = int(os.environ.get('PORT', 5000))
+## ---------------------------------------------------------------------------
 
 var_globales= {
-    'isLogued': False,
-    'user': Animal,
     'title': 'Mi App de Flask',
     'mensaje': ''
 }

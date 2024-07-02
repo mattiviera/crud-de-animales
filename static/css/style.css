@@ -28,3 +28,75 @@ body {
     margin: 50px auto; 
     border-radius: 8px; 
 }
+
+p {
+    color: rgb(226, 195, 43);
+}
+
+.clasnav {
+    background-color: rgb(255, 125, 125);
+
+    a {
+        background-color: aqua;
+    }
+}
+
+.imgnav {
+    width: 50px;
+    padding-left: 5px;
+    border-radius: 50%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+nav {
+    background-color: blue;
+    height: 5em;
+
+    a {
+        font-family: Verdana;
+        font-size: 1.5em;
+        font-style: italic;
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+    }
+}
+
+.images {
+    display: flex;
+    flex-direction: column;
+}
+
+#main {
+    color: white;
+    background-color: grey;
+    min-height: calc(100vh - 10em);
+    padding: 2em;
+    /* display: flex; */
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-display {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form-button-layout {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.unauthorized {
+    width: 95vw;
+    height: 80vh;
+    background-image: url('../img/unauthorized.jpg');
+    background-size: cover; /* Adjust the size of the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center; /* Center the image */
+}
