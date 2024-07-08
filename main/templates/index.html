@@ -6,7 +6,7 @@
       <a class="btn btn-success" href="/auth/login">Ingresar</a>
       <a class="btn btn-primary" href="/auth/register">Registrarse</a>
     {% else %}
-      <h1 class="h3 mb-3 fw-normal">Bienvenido {{ current_user.username }}</h1>
+      <h1 class="h3 mb-3 fw-normal">Bienvenido {{ current_user.name }}</h1>
     {% endif %}
   </main>
 {% endblock %}

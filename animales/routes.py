@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 from flask import redirect, url_for
+from flask_login import login_required
 from models.models import Animal
 from db import session
 from config import var_globales
@@ -11,11 +12,13 @@ animales_bp = Blueprint (
 )
 
 @animales_bp.route('/home')
+@login_required
 def index_animals():
     animals = session.query(Animal).all()
     return render_template('animales/index.html', animals=animals)
 
 @animales_bp.route('/create', methods=['GET', 'POST'])
+@login_required
 def create_animal():
     if request.method == 'POST':
         name = request.form['name']
@@ -44,11 +47,13 @@ def create_animal():
     return render_template('animales/create.html')
 
 @animales_bp.route('/animal/<int:id>')
+@login_required
 def detail_animal(id):
     animal = session.query(Animal).get(id)
     return render_template('animales/detail.html', animal=animal)
 
 @animales_bp.route('/update/<int:id>', methods=["GET", "POST"])
+@login_required
 def update_animal(id):
 
     animal = session.query(Animal).get(id)
@@ -79,6 +84,7 @@ def update_animal(id):
     return render_template('animales/update.html', animal=animal)
 
 @animales_bp.route('/delete/<int:id>')
+@login_required
 def delete_animal(id):
     animal = session.query(Animal).get(id)
     if animal:

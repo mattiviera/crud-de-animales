@@ -49,32 +49,17 @@ p {
     object-fit: contain;
 }
 
-nav {
-    background-color: blue;
-    height: 5em;
-
-    a {
-        font-family: Verdana;
-        font-size: 1.5em;
-        font-style: italic;
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-    }
+footer {
+    margin-top: 500px;
 }
+
 
 .images {
     display: flex;
     flex-direction: column;
 }
 
-#main {
-    color: white;
-    background-color: grey;
-    min-height: calc(100vh - 10em);
-    padding: 2em;
-    /* display: flex; */
-}
+
 
 main {
     display: flex;

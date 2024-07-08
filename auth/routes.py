@@ -28,14 +28,16 @@ def logout():
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
-    form.animal_id.choices = [(animal.id, animal.name) for animal in Animal.query.all()]
+    form.animal_id.choices = [(animal.id, animal.name) for animal in session.query(Animal).all()]
     if form.validate_on_submit():
-        
-        user = Duenio(
-            name=form.name.data,lastname=form.lastname.data,localidad=form.localidad.data,animal_id=form.animal_id.data,username=form.username.data)
+        animal_id = form.animal_id.data if form.animal_id.data != 0 else None
+        user = Duenio(name=form.name.data,lastname=form.lastname.data,localidad=form.localidad.data,animal_id=animal_id,username=form.username.data)
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
         flash('Tu cuenta ha sido creada. Ahora puedes iniciar sesión.', 'success')
         return redirect(url_for('auth.login'))
+    else:
+        flash('Error en el formulario. Por favor, verifica los datos.', 'danger')
+    
     return render_template('register.html', form=form)

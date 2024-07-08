@@ -12,6 +12,24 @@ from flask_login import UserMixin
 
 Base = declarative_base()
 
+class Duenio(UserMixin, Base):
+    __tablename__ = 'duenios'
+    id= mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(unique=False, nullable=False)
+    lastname: Mapped[str] = mapped_column(unique=False, nullable=False)
+    localidad: Mapped[str] = mapped_column(unique=False, nullable=False)
+    animal_id: Mapped[int] = mapped_column(ForeignKey('animals.id'), nullable=True)
+    username: Mapped[str] = mapped_column(String(25))
+    password : Mapped[str] = mapped_column(String(128))
+    
+    animal: Mapped['Animal'] = relationship(back_populates="duenios")
+    
+    def set_password(self, password_to_hash):
+        self.password = generate_password_hash(password_to_hash)
+
+    def check_password(self, password_to_hash):
+        return check_password_hash(self.password, password_to_hash)
+
 class Animal(Base):
     __tablename__ = 'animals'
     id= mapped_column(Integer, primary_key=True)
@@ -24,28 +42,10 @@ class Animal(Base):
     
     duenios : Mapped[List['Duenio']] = relationship(back_populates="animal")
     
-class Duenio(UserMixin, Base):
-    __tablename__ = 'duenios'
-    id= mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(unique=False, nullable=False)
-    lastname: Mapped[str] = mapped_column(unique=False, nullable=False)
-    localidad: Mapped[str] = mapped_column(unique=False, nullable=False)
-    animal_id: Mapped[int] = mapped_column(ForeignKey('animals.id'))
-    username: Mapped[str] = mapped_column(String(25))
-    password : Mapped[str] = mapped_column(String(128))
-    
-    animal: Mapped['Animal'] = relationship(back_populates="duenios")
-    
-    def set_password(self, password_to_hash):
-        self.password = generate_password_hash(password_to_hash)
-
-    def check_password(self, password_to_hash):
-        return check_password_hash(self.password, password_to_hash)
-    
     # Se instalan las librerias con flask_wtf y wtforms
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms.validators import DataRequired, Length, EqualTo, Optional
 
 # Clase para Login de User
 class LoginForm(FlaskForm):
@@ -73,9 +73,8 @@ class RegistrationForm(FlaskForm):
         DataRequired(message='Por favor, introduce tu localidad.'),
         Length(min=4, max=25, message='El nombre de usuario debe tener entre 4 y 25 caracteres.')
     ])
-    animal_id = SelectField('Mascota', validators=[
-        DataRequired(message='Por favor, elige una mascota.')
-    ])
+    animal_id = SelectField('Mascota',validators=[Optional()])
+    
     username = StringField('Nombre de usuario', validators=[
         DataRequired(message='Por favor, introduce tu nombre de usuario.'),
         Length(min=4, max=25, message='El nombre de usuario debe tener entre 4 y 25 caracteres.')
@@ -89,4 +88,6 @@ class RegistrationForm(FlaskForm):
         EqualTo('password', message='Las contraseñas deben coincidir.')
     ])
     submit = SubmitField('Registrarse')
+    
+    
     
