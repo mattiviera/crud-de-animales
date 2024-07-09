@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h1style">Crear Nuevo Dueño</h1> 
+    <form action="/duenios/createduenio" class="h1style" method="POST"        
+        <label for="name">Nombre:</label>        
+        <input type="text" id="name" name="name" required>   
+        <br>     
+        <label for="lastname">Apellido:</label>        
+        <input type="text" id="lastname" name="lastname" required>
+        <br>       
+        <label for="localidad">Localidad:</label>       
+        <input type="text" id="localidad" name="localidad" required>
+        <br>        
+        <label for="animal_id">Animal:</label>
+        <select id="animal_id" name="animal_id" required>
+            {% for animal in animals %}
+                <option value="{{ animal.id }}">{{ animal.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Crear Dueño</button>
+</form>
+
+{% endblock %}

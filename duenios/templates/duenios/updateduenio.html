@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h1style">Actualizar Dueño</h1>
+<form class="h1style" method="POST">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" value="{{ duenio.name }}" required>
+    <br>
+    <label for="lastname">Apellido:</label>
+    <input type="text" id="lastname" name="lastname" value="{{ duenio.photo }}" required>
+    <br>
+    <label for="localidad">Localidad:</label>
+    <input type="text" id="localidad" name="localidad" value="{{ duenio.characteristic1 }}" required>
+    <br>
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}

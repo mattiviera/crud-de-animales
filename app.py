@@ -1,117 +1,58 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import redirect
-from flask import url_for
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped, mapped_column
+from flask import Flask, render_template
+from flask_login import LoginManager
+from models.models import Animal, Duenio
+from werkzeug.exceptions import BadRequest, NotFound
+import db
 
 app = Flask(__name__)
+app.config.from_object('config')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///animals.db'
+# Lo vinculamos con la app de Flask
+login_manager = LoginManager(app)
+login_manager.login_view = 'auth.login'  # Define la ruta de login
+login_manager.init_app(app)
 
-db = SQLAlchemy(app)
+# Decorador de Flask Login para el manejo de la carga del Id de Usuario
+@login_manager.user_loader
+def load_user(user_id):
+    # Aca se pueden agregar acciones que necesitemos hacer cuando el usuario se carga
+    return db.session.query(Duenio).get(int(user_id))
 
-class Base(DeclarativeBase):
-    pass
+# Cuando la ruta existe pero no estoy autorizado a verla
+@login_manager.unauthorized_handler
+def unauthorized():
+    return render_template('unauthorized.html')
 
-class Animal(db.Model):
+# BluePrint's
+from main.routes import main_bp
+from auth.routes import auth_bp
+from animales.routes import animales_bp
+from duenios.routes import duenios_bp
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(unique=True, nullable=False)
-    photo: Mapped[str] = mapped_column(nullable=False)
-    characteristic1: Mapped[str] = mapped_column(nullable=False)
-    characteristic2: Mapped[str] = mapped_column(nullable=False)
-    characteristic3: Mapped[str] = mapped_column()
-    characteristic4: Mapped[str] = mapped_column()
+app.register_blueprint(main_bp, url_prefix='/')
+app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(animales_bp, url_prefix='/animales')
+app.register_blueprint(duenios_bp, url_prefix='/duenios')
 
-with app.app_context():
+# Personalizacion de Errores
+@app.errorhandler(BadRequest)
+def handle_bad_request(e):
+    return 'bad request!', 400
 
-    db.create_all()
-title = 'Mi App de Flask'
+@app.errorhandler(NotFound)
+def handle_not_found(e):
+    return render_template('404.html')
 
+# Retorna un diccionario con las variables que quieres compartir entre los templates y rutas
+from config import var_globales
+@app.context_processor
+def inject_variables():
+    return var_globales
 
-@app.route('/')
-@app.route('/home')
-def index():
-    animals = Animal.query.all()
-    return render_template('index.html', animals=animals)
-
-@app.route('/create', methods=['GET', 'POST'])
-def create():
-    if request.method == 'POST':
-        name = request.form['name']
-        photo = request.form['photo']
-        characteristic1 = request.form['characteristic1']
-        characteristic2 = request.form['characteristic2']
-        characteristic3 = request.form.get('characteristic3', '')
-        characteristic4 = request.form.get('characteristic4', '')
-
-        newanimal = Animal(
-            name=name,
-            photo=photo,
-            characteristic1=characteristic1,
-            characteristic2=characteristic2,
-            characteristic3=characteristic3,
-            characteristic4=characteristic4
-        )
-        try:
-            db.session.add(newanimal)
-            db.session.commit()
-            return redirect(url_for('index'))
-        except Exception as e:
-            db.session.rollback()
-            return f'Error al crear el animal: {e}'
-
-    return render_template('create.html')
-
-@app.route('/animal/<int:id>')
-def detail(id):
-    animal = Animal.query.get(id)
-    return render_template('detail.html', animal=animal)
-
-@app.route('/update/<int:id>', methods=["GET", "POST"])
-def update(id):
-
-    animal = Animal.query.get(id)
-    if animal:
-        if request.method == 'POST':
-
-            name = request.form['name']
-            photo = request.form['photo']
-            characteristic1 = request.form['characteristic1']
-            characteristic2 = request.form['characteristic2']
-            characteristic3 = request.form.get('characteristic3', '')
-            characteristic4 = request.form.get('characteristic4', '')
-
-            animal.name = name
-            animal.photo = photo
-            animal.characteristic1 = characteristic1
-            animal.characteristic2 = characteristic2
-            animal.characteristic3 = characteristic3
-            animal.characteristic4 = characteristic4
-            
-            try:
-                db.session.commit()
-                return redirect(url_for('index'))
-            except Exception as e:
-                db.session.rollback()
-                return f'Error al actualizar el animal: {e}'
-
-    return render_template('update.html', animal=animal)
-
-@app.route('/delete/<int:id>')
-def delete(id):
-    animal = Animal.query.get(id)
-    if animal:
-        try:
-            db.session.delete(animal)
-            db.session.commit()
-        except Exception as e:
-            print(f'Error al eliminar. {e}')
-    return redirect(url_for('index'))
+# Definir un filtro personalizado para formatear la fecha
+@app.template_filter('format_datetime')
+def format_datetime(value, format="%d/%m/%Y %H:%M:%S"):
+    return value.strftime(format)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=app.config['PORT'], debug=app.config['DEBUG'])
