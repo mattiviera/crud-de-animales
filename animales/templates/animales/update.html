@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class="h1style">Actualizar Animal</h1>
-<form class="h1style" method="POST">
+<form action="/animales/update/{{ animal.id }}"  class="h1style" method="POST">
     <label for="name">Nombre:</label>
     <input type="text" id="name" name="name" value="{{ animal.name }}" required>
     <br>

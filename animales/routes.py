@@ -11,11 +11,11 @@ animales_bp = Blueprint (
     "animales_bp", __name__, template_folder="templates", static_folder="static"
 )
 
-@animales_bp.route('/home')
+@animales_bp.route('/')
 @login_required
-def index_animals():
+def animales():
     animals = session.query(Animal).all()
-    return render_template('animales/index.html', animals=animals)
+    return render_template('animales/animales.html', animals=animals)
 
 @animales_bp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -39,7 +39,7 @@ def create_animal():
         try:
             session.add(newanimal)
             session.commit()
-            return redirect(url_for('/animales'))
+            return redirect('/animales')
         except Exception as e:
             session.rollback()
             return f'Error al crear el animal: {e}'
@@ -50,7 +50,7 @@ def create_animal():
 @login_required
 def detail_animal(id):
     animal = session.query(Animal).get(id)
-    return render_template('animales/detail.html', animal=animal)
+    return render_template('/animales/detail.html', animal=animal)
 
 @animales_bp.route('/update/<int:id>', methods=["GET", "POST"])
 @login_required
@@ -76,7 +76,7 @@ def update_animal(id):
             
             try:
                 session.commit()
-                return redirect(url_for('/animales'))
+                return redirect('/animales')
             except Exception as e:
                 session.rollback()
                 return f'Error al actualizar el animal: {e}'
@@ -93,4 +93,4 @@ def delete_animal(id):
             session.commit()
         except Exception as e:
             print(f'Error al eliminar. {e}')
-    return redirect(url_for('/animales'))
+    return redirect('/animales')

@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import request
 from flask import redirect, url_for
+from flask_login import login_required, current_user
 from models.models import Duenio, Animal
 from db import session
 from config import var_globales
@@ -9,6 +10,15 @@ from config import var_globales
 duenios_bp = Blueprint (
     "duenios_bp", __name__, template_folder="templates", static_folder="static"
 )
+
+@duenios_bp.route('/perfil')
+@login_required
+def perfil():
+    duenio = session.query(Duenio).get(current_user.id)
+    return render_template('duenios/perfil.html', duenio=duenio)
+
+
+
 # CRUD Dueño
 #@duenios_bp.route('/indexduenio')
 #def index_duenios():

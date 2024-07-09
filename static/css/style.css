@@ -78,9 +78,9 @@ main {
 }
 
 .unauthorized {
-    width: 95vw;
-    height: 80vh;
-    background-image: url('../img/unauthorized.jpg');
+    width: 98.5vw;
+    height: 110vh;
+    background-image: url('../images/401-error-wordpress-featured-image.jpg');
     background-size: cover; /* Adjust the size of the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-position: center; /* Center the image */
