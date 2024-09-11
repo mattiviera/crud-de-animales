@@ -5,10 +5,10 @@ from typing import List
 from animalitos.dto import *
 from animalitos.service import *
 
-animales = APIRouter()
+animal = APIRouter()
 
 # Metodo o Controlador
-@animales.get('/', response_model=List[AnimalDTO], status_code=200)
+@animal.get('/', response_model=List[AnimalDTO], status_code=200)
 def animales():
     try:
         animales = getAnimales()
@@ -18,7 +18,7 @@ def animales():
     except Exception as e:
         return HTTPException(detail=f'Error al recuperar Usuarios: {e}', status_code=500)
 
-@animales.get('/{id}', response_model=AnimalDTO, status_code=200)
+@animal.get('/{id}', response_model=AnimalDTO, status_code=200)
 def get_animal(id: int):
     try:
         animal = getAnimal(id=id)
@@ -28,7 +28,7 @@ def get_animal(id: int):
     except Exception as e:
         return HTTPException(detail=f'Error al recuperar Usuario: {e}', status_code=500)
 
-@animales.post('/', response_model=AnimalDTO, status_code=200)
+@animal.post('/', response_model=AnimalDTO, status_code=200)
 def create(animalpost: CreateAnimal):
     try:
         animal_new = createAnimal(animal=animalpost)
@@ -38,7 +38,7 @@ def create(animalpost: CreateAnimal):
     except Exception as e:
         return HTTPException(detail=f'Error al Crear Usuario: {e}', status_code=500)
 
-@animales.put('/', response_model=AnimalDTO, status_code=200)
+@animal.put('/', response_model=AnimalDTO, status_code=200)
 def update(animalupdate: UpdateAnimalDTO):
     try:
         animal_update = updateAnimal(animalupdate=animalupdate)
@@ -48,7 +48,7 @@ def update(animalupdate: UpdateAnimalDTO):
     except Exception as e:
         return HTTPException(detail=f'Error al actualizar el Usuario: {e}', status_code=500)
 
-@animales.delete('/', response_model=AnimalDTO, status_code=200)
+@animal.delete('/', response_model=AnimalDTO, status_code=200)
 def delete(animaldelete: DeleteAnimalDTO):
     try:
         animal_delete = deleteAnimal(animaldelete=animaldelete) 
