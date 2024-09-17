@@ -1,0 +1,11 @@
+el modelo(entity.py) es lo que va a definir la estructura de los datos que se van a manejar, en este caso
+(Animal: id, nombre, foto, característica 1,2,3 y 4), luego en los DTO, me voy a encontrar con los datos
+que se envían y reciben, como por ejemplo para crear un animal, se van a contener los datos necesarios
+del modelo que se van a usar para crear el animal, 
+ej:( name : str, photo : str, characteristic1 : str, characteristic2 : str, characteristic3 : str, characteristic4 : str),
+ya en los servicios me encuentro con la lógica que se va a usar sobre el modelo, y la manera que voy a tratar con los datos,
+por ejemplo usando el getAnimales para devolver todos los usuarios activos, y en las rutas me voy a encontrar
+con los endpoints que reciben las peticiones, por ejemplo el mismo get para obtener todos los usuarios, o un post
+para crear uno. Entonces una petición llegaría a una ruta, que esta misma ruta procedería a llamar al servicio 
+correspondiente, que luego el servicio actuaria sobre el modelo y devuelve los datos con la estructura del dto
+que llegaría como la respuesta a la petición.
